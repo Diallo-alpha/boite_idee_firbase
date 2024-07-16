@@ -18,7 +18,7 @@
                         <form id="ideaForm" class="mb-4">
                             <div class="mb-3">
                                 <label for="title" class="form-label">Libellé :</label>
-                                <input type="text" id="title" name="title" class="form-control" required minlength="5">
+                                <input type="text" id="title" name="title" class="form-control" required minlength="3" maxlength="15">
                             </div>
                             <div class="mb-3">
                                 <label for="categorie" class="form-label">Catégorie :</label>
@@ -31,7 +31,8 @@
                             </div>
                             <div class="mb-3">
                                 <label for="description" class="form-label">Description :</label>
-                                <textarea id="description" name="description" class="form-control" required></textarea>
+                                <textarea id="description" name="description" class="form-control" required maxlength="255"></textarea>
+                                <div class="form-text">Maximum 255 caractères.</div>
                             </div>
                             <button type="submit" class="btn btn-primary">Ajouter</button>
                         </form>
@@ -51,10 +52,8 @@
         </section>
         <div id="mainContent"></div>
     </main>
-    <!-- Charger Firebase -->
     <script src="https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js" type="module"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js" type="module"></script>
-    <!-- Votre script JavaScript -->
     <script src="script.js" type="module"></script>
 </body>
 </html>

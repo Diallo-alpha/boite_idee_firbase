@@ -67,8 +67,10 @@ async function renderIdeas() {
                                 <h5 class="card-title">${idea.title}</h5>
                                 <h6 class="card-subtitle mb-2 text-muted">${idea.categorie}</h6>
                                 <p class="card-text">${idea.description}</p>
-                                <button class="btn btn-success btn-sm" onclick="approveIdea('${ideaId}')">Approuver</button>
-                                <button class="btn btn-warning btn-sm" onclick="disapproveIdea('${ideaId}')">Désapprouver</button>
+                                ${idea.approved ? 
+                                    `<button class="btn btn-warning btn-sm" onclick="disapproveIdea('${ideaId}')">Désapprouver</button>` : 
+                                    `<button class="btn btn-success btn-sm" onclick="approveIdea('${ideaId}')">Approuver</button>`
+                                }
                                 <button class="btn btn-danger btn-sm" onclick="deleteIdea('${ideaId}')">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                                         <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
@@ -93,6 +95,7 @@ async function approveIdea(id) {
     try {
         await update(ref(db, `ideas/${id}`), { approved: true });  // Mettre à jour le statut de l'idée à approuvé
         renderIdeas();  // Recharger les idées pour refléter la modification
+        showMessage("Idée approuvée avec succès", "success");  // Afficher un message de succès
     } catch (error) {
         console.error("Erreur d'approbation de l'idée :", error);
         showMessage(`Erreur: ${error.message}`, "danger");  // Afficher un message d'erreur
@@ -104,6 +107,7 @@ async function disapproveIdea(id) {
     try {
         await update(ref(db, `ideas/${id}`), { approved: false });  // Mettre à jour le statut de l'idée à désapprouvé
         renderIdeas();  // Recharger les idées pour refléter la modification
+        showMessage("Idée désapprouvée avec succès", "success");  // Afficher un message de succès
     } catch (error) {
         console.error("Erreur de désapprobation de l'idée :", error);
         showMessage(`Erreur: ${error.message}`, "danger");  // Afficher un message d'erreur
@@ -115,6 +119,7 @@ async function deleteIdea(id) {
     try {
         await remove(ref(db, `ideas/${id}`));  // Supprimer l'idée de la base de données
         renderIdeas();  // Recharger les idées pour refléter la suppression
+        showMessage("Idée supprimée avec succès", "success");  // Afficher un message de succès
     } catch (error) {
         console.error("Erreur de suppression de l'idée :", error);
         showMessage(`Erreur: ${error.message}`, "danger");  // Afficher un message d'erreur
